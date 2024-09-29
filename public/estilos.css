@@ -1,0 +1,156 @@
+.content{
+    height: 300px;
+    width: 450px;
+    background-color: aquamarine;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-weight: bold;
+    
+}
+
+#FotoAmigo{
+    height: 400px;
+    width: 400px;
+    background-color: rgb(219, 230, 126);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.bodyCarga{
+background-color: #f2f2f2;
+font-family: arial,sans-serif;
+display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+}
+
+.carga{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+
+.loader{
+border: 16px solid #f3f3f3;
+border-top: 16px solid #3498db;
+border-radius: 50%;
+width: 120px;
+height: 10px;
+animation: girar 2s linear infinite ;
+}
+
+@keyframes girar{
+    0%{
+        transform: rotate(0deg);
+    }100%{
+        transform: rotate(360deg);
+    }
+}
+
+
+#contentAmigo{
+    height: 100px;
+    width: 400px;
+    background-color: aquamarine;
+    font-size: 25px;
+    color: #000;
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+}
+
+a{
+    text-decoration: none;
+    font-size: 25px;
+    color: black;
+    font-weight: bold;
+    height: 40px;
+    width: 300px;
+    border: 2px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(240, 240, 118);
+}
+
+button{
+    height: 70px;
+    width: 120px;
+    background-color: rgb(209, 16, 16);
+    font-weight: bold;
+    color: #fff;
+    font-size: 20px;
+    user-select: none;
+}
+
+.amigosVer{
+     margin-top: 50px;
+    height: 200px;
+    width: 300px;
+    background-color: aquamarine;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+body{
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: url(../imagenes/floresRojas.jpg);
+    flex-direction: column;
+    background-size: cover; 
+  background-position: center;
+  background-repeat: no-repeat; 
+}
+
+#numero{
+    margin-top: 10px;
+    height: 40px;
+}
+
+.bodyAmigo{
+background-image: url(../imagenes/floresMoradas.jpg);
+background-size: cover; 
+  background-position: center;
+  background-repeat: no-repeat; 
+  display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.content p{
+    font-size: 23px;
+}
+
+#amigo{
+    margin-top: 10px;
+    height: 40px;
+}
+
+#enviar{
+    height: 45px;
+    width: 100px;
+}
+
