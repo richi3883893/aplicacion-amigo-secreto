@@ -87,17 +87,7 @@ app.get("/traer", (req, res) => {
   });
 });
 
-app.get("/verElement", (req, res) => {
-  const consulta = "SELECT * FROM amigosver";
 
-  pool.query(consulta,(error, results) => {
-    if (error) {
-      console.error("Error al obtener los datos: ", error.stack);
-      return res.status(500).send({ success: false, message: "Error al obtener los datos" });
-    }
-    res.send({ success: true, data: results.rows });
-  });
-});
 
 // Endpoint para eliminar datos
 app.post('/delete', (req, res) => {

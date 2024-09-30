@@ -2,9 +2,6 @@
 let contentAmigo = document.getElementById("contentAmigo");
 let FotoAmigo = document.getElementById("FotoAmigo")
 
-fetch("/verElement")
-.then(response => response.json())
-.then(data => console.log(data))
 
 const randomNumber = Math.floor(Math.random() * 10) + 1;
   console.log(randomNumber);
