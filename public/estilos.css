@@ -1,4 +1,22 @@
-.content{
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: url(../imagenes/floresRojas.jpg);
+    flex-direction: column;
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat; 
+    font-family: Arial, sans-serif;
+}
+
+.content {
     height: 300px;
     width: 450px;
     background-color: aquamarine;
@@ -7,10 +25,9 @@
     align-items: center;
     flex-direction: column;
     font-weight: bold;
-    
 }
 
-#FotoAmigo{
+#FotoAmigo {
     height: 400px;
     width: 400px;
     background-color: rgb(219, 230, 126);
@@ -19,18 +36,15 @@
     align-items: center;
 }
 
-
-.bodyCarga{
-background-color: #f2f2f2;
-font-family: arial,sans-serif;
-display: flex;
+.bodyCarga {
+    background-color: #f2f2f2;
+    display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    
 }
 
-.carga{
+.carga {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -38,26 +52,25 @@ display: flex;
     text-align: center;
 }
 
-
-.loader{
-border: 16px solid #f3f3f3;
-border-top: 16px solid #3498db;
-border-radius: 50%;
-width: 120px;
-height: 10px;
-animation: girar 2s linear infinite ;
+.loader {
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #3498db;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px; /* Ajustado para ser un círculo */
+    animation: girar 2s linear infinite;
 }
 
-@keyframes girar{
-    0%{
+@keyframes girar {
+    0% {
         transform: rotate(0deg);
-    }100%{
+    }
+    100% {
         transform: rotate(360deg);
     }
 }
 
-
-#contentAmigo{
+#contentAmigo {
     height: 100px;
     width: 400px;
     background-color: aquamarine;
@@ -68,10 +81,9 @@ animation: girar 2s linear infinite ;
     display: flex;
     align-items: center;
     justify-content: center;
-   
 }
 
-a{
+a {
     text-decoration: none;
     font-size: 25px;
     color: black;
@@ -85,7 +97,7 @@ a{
     background-color: rgb(240, 240, 118);
 }
 
-button{
+button {
     height: 70px;
     width: 120px;
     background-color: rgb(209, 16, 16);
@@ -95,8 +107,8 @@ button{
     user-select: none;
 }
 
-.amigosVer{
-     margin-top: 50px;
+.amigosVer {
+    margin-top: 50px;
     height: 200px;
     width: 300px;
     background-color: aquamarine;
@@ -105,52 +117,87 @@ button{
     align-items: center;
     flex-direction: column;
 }
-body{
-    
+
+#numero {
+    margin-top: 10px;
+    height: 40px;
+}
+
+.bodyAmigo {
+    background-image: url(../imagenes/floresMoradas.jpg);
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat; 
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background-image: url(../imagenes/floresRojas.jpg);
-    flex-direction: column;
-    background-size: cover; 
-  background-position: center;
-  background-repeat: no-repeat; 
-}
-
-#numero{
-    margin-top: 10px;
-    height: 40px;
-}
-
-.bodyAmigo{
-background-image: url(../imagenes/floresMoradas.jpg);
-background-size: cover; 
-  background-position: center;
-  background-repeat: no-repeat; 
-  display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
     flex-direction: column;
 }
 
-*{
-    margin: 0;
-    padding: 0;
-}
-
-.content p{
+.content p {
     font-size: 23px;
 }
 
-#amigo{
+#amigo {
     margin-top: 10px;
     height: 40px;
 }
 
-#enviar{
+#enviar {
     height: 45px;
     width: 100px;
 }
 
+/* Media Queries para dispositivos móviles */
+@media (max-width: 767px) {
+    body {
+        flex-direction: column;
+        padding: 10px; /* Añadir un poco de padding para móviles */
+    }
+
+    .content, 
+    #FotoAmigo, 
+    .amigosVer {
+        width: 60%; /* Ajustar ancho a 100% */
+        height: 40%; /* Altura automática para contenido variable */
+    }
+
+    #contentAmigo{
+        width: 60%; /* Ajustar ancho a 100% */
+        height: 20%;
+    }
+.content p{
+    font-size:  20px;
+}
+
+
+    .content {
+        height: auto; /* Altura automática para contenido variable */
+        font-size: 10px; /* Tamaño de fuente ajustado */
+    }
+
+    h1 {
+        font-size: 24px; /* Ajustar tamaño de h1 si hay */
+    }
+
+    p {
+        font-size: 14px; /* Ajustar tamaño de p */
+    }
+
+    a{
+
+    }
+    
+    
+    button {
+        height: 40%; 
+        width: 80%;
+        font-size: 20px;
+    }
+
+    .loader {
+        width: 80px; /* Reducir el tamaño del loader */
+        height: 80px; /* Reducir el tamaño del loader */
+    }
+}

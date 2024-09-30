@@ -1,8 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const { Client } = require('pg');
-require('dotenv').config(); // Para usar variables de entorno
+const { Pool } = require('pg');
+require('dotenv').config();
 
 const app = express();
 
@@ -12,42 +12,45 @@ app.use('/imagenes', express.static(__dirname + '/imagenes'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Ruta principal
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "traerAmigo.html"));
 });
 
-const client = new Client({
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_DATABASE,
+// Configuración de la conexión
+const pool = new Pool({
+  connectionString: "postgresql://richard:OtGAaV7WVl7Jxe9DajQsNAOitpckP9R9@dpg-crt31eogph6c7393kl90-a.oregon-postgres.render.com/amigosecreto_vpwy",
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 
-// Conectar a la base de datos
-client.connect(err => {
+// Verificar conexión
+pool.connect((err) => {
   if (err) {
-    console.error('Error conectando a la base de datos:', err.stack);
+    console.error('Error al conectar a PostgreSQL:', err);
     return;
   }
-  console.log('Conexión a la base de datos exitosa');
+  console.log('Conexión exitosa a PostgreSQL');
 
-  // Crear la tabla "amigos" si no existe
+  // Crear la tabla 'amigos'
   const createTableQuery = `
-    CREATE TABLE IF NOT EXISTS amigos (
-      numero SERIAL PRIMARY KEY,
-      amigos VARCHAR(255) NOT NULL
+    CREATE TABLE amigosver (
+      numero INT,
+      amigo VARCHAR(100)
     );
   `;
 
-  client.query(createTableQuery, (err) => {
+  pool.query(createTableQuery, (err, res) => {
     if (err) {
-      console.error('Error al crear la tabla:', err.stack);
+      console.error('Error creando la tabla:', err);
     } else {
-      console.log('Tabla "amigos" creada o ya existe');
+      console.log('Tabla creada exitosamente');
     }
   });
 });
+
+module.exports = pool;
 
 // Endpoint para enviar datos
 app.post("/enviar", (req, res) => {
@@ -58,8 +61,9 @@ app.post("/enviar", (req, res) => {
     return res.status(400).send({ respuesta: false, message: "Datos incompletos" });
   }
 
-  const query = "INSERT INTO amigos (numero, amigos) VALUES ($1, $2)";
-  client.query(query, [numero, amigo], (error) => {
+  const query = "INSERT INTO amigosver(numero, amigo) VALUES ($1, $2)";
+  
+  pool.query(query, [numero, amigo], (error) => {
     if (error) {
       console.log("Error: no se pudo enviar los datos", error.stack);
       return res.status(500).send({ respuesta: false, message: "Error al insertar datos" });
@@ -72,9 +76,21 @@ app.post("/enviar", (req, res) => {
 // Endpoint para traer datos
 app.get("/traer", (req, res) => {
   const numero = req.query.numero;
-  const consulta = "SELECT * FROM amigos WHERE numero = $1";
+  const consulta = "SELECT * FROM amigosver WHERE numero = $1";
 
-  client.query(consulta, [numero], (error, results) => {
+  pool.query(consulta, [numero], (error, results) => {
+    if (error) {
+      console.error("Error al obtener los datos: ", error.stack);
+      return res.status(500).send({ success: false, message: "Error al obtener los datos" });
+    }
+    res.send({ success: true, data: results.rows });
+  });
+});
+
+app.get("/verElement", (req, res) => {
+  const consulta = "SELECT * FROM amigosver";
+
+  pool.query(consulta,(error, results) => {
     if (error) {
       console.error("Error al obtener los datos: ", error.stack);
       return res.status(500).send({ success: false, message: "Error al obtener los datos" });
@@ -91,9 +107,9 @@ app.post('/delete', (req, res) => {
     return res.status(400).json({ success: false, message: "Número no proporcionado" });
   }
 
-  const query = 'DELETE FROM amigos WHERE numero = $1';
+  const query = 'DELETE FROM amigosver WHERE numero = $1';
 
-  client.query(query, [numero], (error) => {
+  pool.query(query, [numero], (error) => {
     if (error) {
       console.error("Error al eliminar el registro:", error.stack);
       return res.status(500).json({ success: false, message: 'Error al eliminar el registro' });
@@ -109,9 +125,8 @@ app.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
 
-// Cerrar conexión a la base de datos al finalizar
 process.on('SIGINT', () => {
-  client.end(err => {
+  pool.end(err => {
     if (err) {
       console.error('Error cerrando la conexión a la base de datos', err);
     } else {

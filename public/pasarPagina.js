@@ -2,22 +2,27 @@
 let contentAmigo = document.getElementById("contentAmigo");
 let FotoAmigo = document.getElementById("FotoAmigo")
 
+fetch("/verElement")
+.then(response => response.json())
+.then(data => console.log(data))
+
 const randomNumber = Math.floor(Math.random() * 10) + 1;
   console.log(randomNumber);
 
   fetch(`/traer?numero=${randomNumber}`)
     .then((response) => response.json())
     .then((data) => {
+      console.log(data.data)
         if(data.data.length > 0){
             data.data.forEach((element) => { {
-                  let div = document.createElement("div");
-                  div.textContent = element.amigos;
+                let div = document.createElement("div");
+                  div.textContent = element.amigo;
                   contentAmigo.appendChild(div);
                   console.log(div.textContent)
 
                   switch (div.textContent) {
                     case "Jesus":
-                      FotoAmigo.style.backgroundImage = "url(imagenes/jesus.jpg)"
+                      FotoAmigo.style.backgroundImage = "url(../imagenes/jesus.jpg)"
                       FotoAmigo.style.backgroundSize = "cover";  
                      FotoAmigo.style.backgroundPosition = "center"; 
                      FotoAmigo.style.backgroundRepeat = "no-repeat"; 
@@ -31,14 +36,14 @@ const randomNumber = Math.floor(Math.random() * 10) + 1;
                       break;
 
                       case "Juan Pablo":
-                       FotoAmigo.style.backgroundImage = "url(imagenes/juanPablo.jpg)"
+                       FotoAmigo.style.backgroundImage = "url(../imagenes/juanPablo.jpg)"
                        FotoAmigo.style.backgroundSize = "cover";  
                        FotoAmigo.style.backgroundPosition = "center"; 
                        FotoAmigo.style.backgroundRepeat = "no-repeat"; 
                       break;
 
                       case "Valentina":
-                       FotoAmigo.style.backgroundImage = "url(imagenes/valentina.jpg)"
+                       FotoAmigo.style.backgroundImage = "url(../imagenes/valentina.jpg)"
                        FotoAmigo.style.backgroundSize = "cover";  
                        FotoAmigo.style.backgroundPosition = "center"; 
                        FotoAmigo.style.backgroundRepeat = "no-repeat"; 
@@ -46,42 +51,42 @@ const randomNumber = Math.floor(Math.random() * 10) + 1;
 
 
                       case "Vanesa":
-                       FotoAmigo.style.backgroundImage = "url(imagenes/vanesa.jpg)"
+                       FotoAmigo.style.backgroundImage = "url(../imagenes/vanesa.jpg)"
                        FotoAmigo.style.backgroundSize = "cover";  
                        FotoAmigo.style.backgroundPosition = "center"; 
                        FotoAmigo.style.backgroundRepeat = "no-repeat"; 
                        break;
  
                        case "Magola":
-                        FotoAmigo.style.backgroundImage = "url(imagenes/magola.jpg)"
+                        FotoAmigo.style.backgroundImage = "url(../imagenes/magola.jpg)"
                         FotoAmigo.style.backgroundSize = "cover";  
                        FotoAmigo.style.backgroundPosition = "center"; 
                        FotoAmigo.style.backgroundRepeat = "no-repeat"; 
                        break;
  
                        case "Francy":
-                        FotoAmigo.style.backgroundImage = "url(imagenes/francy.jpg)"
+                        FotoAmigo.style.backgroundImage = "url(../imagenes/francy.jpg)"
                         FotoAmigo.style.backgroundSize = "cover";  
                        FotoAmigo.style.backgroundPosition = "center"; 
                        FotoAmigo.style.backgroundRepeat = "no-repeat"; 
                        break;
  
                        case"Richard Hijo":
-                       FotoAmigo.style.backgroundImage = "url(imagenes/richardh.jpg)"
+                       FotoAmigo.style.backgroundImage = "url(../imagenes/richardh.jpg)"
                        FotoAmigo.style.backgroundSize = "cover";  
                       FotoAmigo.style.backgroundPosition = "center"; 
                       FotoAmigo.style.backgroundRepeat = "no-repeat"; 
                        break;
 
                        case "Heidi":
-                        FotoAmigo.style.backgroundImage = "url(imagenes/heidi.jpg)"
+                        FotoAmigo.style.backgroundImage = "url(../imagenes/heidi.jpg)"
                         FotoAmigo.style.backgroundSize = "cover";  
                        FotoAmigo.style.backgroundPosition = "center"; 
                        FotoAmigo.style.backgroundRepeat = "no-repeat"; 
                        break;
 
                        case "Richard":
-                        FotoAmigo.style.backgroundImage = "url(imagenes/richard.jpg)"
+                        FotoAmigo.style.backgroundImage = "url(../imagenes/richard.jpg)"
                         FotoAmigo.style.backgroundSize = "cover";  
                        FotoAmigo.style.backgroundPosition = "center"; 
                        FotoAmigo.style.backgroundRepeat = "no-repeat"; 
