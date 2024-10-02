@@ -6,7 +6,7 @@ fetch("/veramigos")
 .then(response => response.json())
 .then(data => data.data.forEach(element => {
     console.log(element.amigo , element.numero)
-    console.log(data.data.length)
+    console.log(" numero de amigos secretos" , data.data.length)
 }))
 
 traerAmigosBoton.addEventListener("click", () => {
