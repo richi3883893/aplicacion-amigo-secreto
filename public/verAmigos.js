@@ -4,7 +4,9 @@ let contentAmigo = document.getElementById("contentAmigo");
 
 fetch("/veramigos")
 .then(response => response.json())
-.then(data => console.log(data.data.length))
+.then(data => data.data.forEach(element => {
+    console.log(element.amigo , element.numero)
+}))
 
 traerAmigosBoton.addEventListener("click", () => {
     window.location.href = 'carga.html';

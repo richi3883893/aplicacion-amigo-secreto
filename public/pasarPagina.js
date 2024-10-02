@@ -120,4 +120,4 @@ const randomNumber = Math.floor(Math.random() * 10) + 1;
       .then((response) => response.json())
       .then((data) => console.log("Se eliminó el nombre"))
       .catch((error) => console.error("Error al eliminar el nombre:", error));
-  }, 2000);
+  }, 1000);
