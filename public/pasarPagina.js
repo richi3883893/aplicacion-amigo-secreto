@@ -102,7 +102,7 @@ const randomNumber = Math.floor(Math.random() * 10) + 1;
           contentAmigo.appendChild(div);
           setTimeout(() => {
             window.location.href = 'traerAmigo.html';
-        },3000)
+        },2000)
 
           
         }
@@ -120,4 +120,4 @@ const randomNumber = Math.floor(Math.random() * 10) + 1;
       .then((response) => response.json())
       .then((data) => console.log("Se eliminó el nombre"))
       .catch((error) => console.error("Error al eliminar el nombre:", error));
-  }, 1000);
+  }, 500);
