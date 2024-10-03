@@ -101,6 +101,18 @@ app.get("/veramigos", (req, res) => {
 });
 
 
+app.get('/numerosDisponibles', (req, res) => {
+  const query = 'SELECT numero FROM amigos'; // Consulta que selecciona los números válidos
+  pool.query(query, (error, results) => {
+    if (error) {
+      console.error('Error obteniendo los números disponibles:', error);
+      return res.status(500).send({ error: 'Error obteniendo los números disponibles' });
+    }
+    const numerosDisponibles = results.map(row => row.numero); // Array con los números disponibles
+    res.json({ numerosDisponibles });
+  });
+});
+
 
 
 // Endpoint para eliminar datos
@@ -110,6 +122,8 @@ app.post('/delete', (req, res) => {
   if (!numero) {
     return res.status(400).json({ success: false, message: "Número no proporcionado" });
   }
+
+  
 
   const query = 'DELETE FROM amigosver WHERE numero = $1';
 
