@@ -1,3 +1,5 @@
+
+
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
@@ -33,9 +35,9 @@ pool.connect((err) => {
   }
   console.log('Conexión exitosa a PostgreSQL');
 
-  // Crear la tabla 'amigos'
+  // Crear la tabla 'friends' si no existe
   const createTableQuery = `
-    CREATE TABLE amigosver (
+    CREATE TABLE IF NOT EXISTS friends (
       numero INT,
       amigo VARCHAR(100)
     );
@@ -61,7 +63,7 @@ app.post("/enviar", (req, res) => {
     return res.status(400).send({ respuesta: false, message: "Datos incompletos" });
   }
 
-  const query = "INSERT INTO amigosver(numero, amigo) VALUES ($1, $2)";
+  const query = "INSERT INTO friends(numero, amigo) VALUES ($1, $2)";
   
   pool.query(query, [numero, amigo], (error) => {
     if (error) {
@@ -76,7 +78,7 @@ app.post("/enviar", (req, res) => {
 // Endpoint para traer datos
 app.get("/traer", (req, res) => {
   const numero = req.query.numero;
-  const consulta = "SELECT * FROM amigosver WHERE numero = $1";
+  const consulta = "SELECT * FROM friends WHERE numero = $1";
 
   pool.query(consulta, [numero], (error, results) => {
     if (error) {
@@ -87,9 +89,9 @@ app.get("/traer", (req, res) => {
   });
 });
 
-
+// Endpoint para ver todos los amigos
 app.get("/veramigos", (req, res) => {
-  const consulta = "SELECT * FROM amigosver";
+  const consulta = "SELECT * FROM friends";
 
   pool.query(consulta, (error, results) => {
     if (error) {
@@ -100,20 +102,19 @@ app.get("/veramigos", (req, res) => {
   });
 });
 
-
+// Endpoint para obtener los números disponibles
 app.get('/numerosDisponibles', (req, res) => {
-  const query = 'SELECT numero FROM amigos'; // Consulta que selecciona los números válidos
+  const query = 'SELECT numero FROM friends'; // Cambiado 'amigos' a 'friends'
+  
   pool.query(query, (error, results) => {
     if (error) {
       console.error('Error obteniendo los números disponibles:', error);
       return res.status(500).send({ error: 'Error obteniendo los números disponibles' });
     }
-    const numerosDisponibles = results.map(row => row.numero); // Array con los números disponibles
+    const numerosDisponibles = results.rows.map(row => row.numero); // Corregido acceso a 'results.rows'
     res.json({ numerosDisponibles });
   });
 });
-
-
 
 // Endpoint para eliminar datos
 app.post('/delete', (req, res) => {
@@ -123,9 +124,7 @@ app.post('/delete', (req, res) => {
     return res.status(400).json({ success: false, message: "Número no proporcionado" });
   }
 
-  
-
-  const query = 'DELETE FROM amigosver WHERE numero = $1';
+  const query = 'DELETE FROM friends WHERE numero = $1';
 
   pool.query(query, [numero], (error) => {
     if (error) {
@@ -138,11 +137,13 @@ app.post('/delete', (req, res) => {
   });
 });
 
+// Configuración del puerto
 const PORT = process.env.PORT || 3340;
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
 
+// Cerrar la conexión a la base de datos al finalizar el proceso
 process.on('SIGINT', () => {
   pool.end(err => {
     if (err) {
